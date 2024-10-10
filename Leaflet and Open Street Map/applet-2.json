@@ -1,0 +1,27 @@
+[
+    {
+        "longitude": 8.326463,
+        "latitude": 124.977644,
+        "message": "Sumilao Municipal Hall"
+    },
+    {
+        "longitude": 8.336246,
+        "latitude": 124.975606,
+        "message": "Sumilao Public Market"
+    },
+    {
+        "longitude": 8.329670,
+        "latitude": 124.977965,
+        "message": "Pilar High School"
+    },
+    {
+        "longitude": 8.331275,
+        "latitude": 124.978953,
+        "message": "Kisolon Central Elem. School"
+    },
+    {  
+        "longitude": 8.323438,
+        "latitude": 124.978899,
+        "message": "Alalum Falls"
+    }
+]

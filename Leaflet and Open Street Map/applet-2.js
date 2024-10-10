@@ -28,3 +28,15 @@ class LeafletMap {
             .catch(error => console.error('Error loading markers:', error));
     }
 }
+
+const myMap = new LeafletMap('map', [8.328803,124.979448], 18);
+
+
+myMap.addMarker(8.326463,124.977644, 'Sumilao Municipal Hall');
+myMap.addMarker(8.336246,124.975606, 'Sumilao Public Market');
+myMap.addMarker(8.329670,124.977965, 'Pilar High School');
+myMap.addMarker(8.331275,124.978953, 'Kisolon Central Elem. School');
+myMap.addMarker(8.323438,124.978899, 'Alalum Falls');
+
+
+myMap.loadMarkersFromJson('applet-2.json');

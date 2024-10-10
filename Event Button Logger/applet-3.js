@@ -10,4 +10,10 @@ class DataLogger {
         this.clearButton.addEventListener('click', () => this.clearLogs());
     }
 
+    logData() {
+        const timestamp = new Date().toLocaleString();
+        this.loggedData.push(timestamp);
+        this.updateCardContainer();
+    }
+
 }

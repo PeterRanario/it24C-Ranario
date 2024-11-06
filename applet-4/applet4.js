@@ -53,4 +53,3 @@ class Studentlist {
         this.renderStudentList(filteredStudents, searchListContainer);
     }
 }
-

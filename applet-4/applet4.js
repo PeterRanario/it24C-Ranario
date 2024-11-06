@@ -53,3 +53,5 @@ class Studentlist {
         this.renderStudentList(filteredStudents, searchListContainer);
     }
 }
+
+const Studentlist = new Studentlist('applet4.json');

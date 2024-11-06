@@ -41,4 +41,15 @@ class Studentlist {
 
         this.renderStudentList(this.students, studentSearchListContainer);
     }
+
+    filterStudents(query, searchListContainer) {
+        const filteredStudents = this.students.filter(student => {
+            const fullName = `${student.student_name} ${student.student_program}`;
+            return fullName.toLowerCase().includes(query.toLowerCase());
+        });
+
+        searchListContainer.innerHTML = '';
+
+        this.renderStudentList(filteredStudents, searchListContainer);
+    }
 }

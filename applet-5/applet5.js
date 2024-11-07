@@ -1,54 +1,60 @@
-class WeatherApp {
-    constructor() {
-        //API Key
-        this.apiKey = document.getElementById('apiKeyInput');
-        
-        //Text Inputapplet-5/applet-5.js
+class WeatherApp{
+    constructor(){
         this.cityInput = document.getElementById('cityInput');
         this.getWeatherBtn = document.getElementById('getWeatherBtn');
 
-        //Geolocation Input
+
         this.getLocationBtn = document.getElementById('getLocationBtn');
 
-        //Weather Card
+
         this.weatherCard = document.getElementById('weatherCard');
         this.cityName = document.getElementById('cityName');
         this.temperature = document.getElementById('temperature');
         this.description = document.getElementById('description');
         this.humidity = document.getElementById('humidity');
         this.windSpeed = document.getElementById('windSpeed');
+        this.APIKeyInput = document.getElementById('apiInput');
 
-        //Event Listener
+
         this.getWeatherBtn.addEventListener('click', () => this.fetchWeather());
         this.getLocationBtn.addEventListener('click', () => this.fetchWeatherByLocation());
     }
-
-    displayWeather(data) {  
+    displayWeather(data){
         this.cityName.textContent = `${data.name}, ${data.sys.country} (${data.coord.lat}, ${data.coord.lon})`;
         this.temperature.textContent = `Temperature: ${data.main.temp} °C`;
         this.description.textContent = `Weather: ${data.weather[0].description}`;
         this.humidity.textContent = `Humidity: ${data.main.humidity}%`;
         this.windSpeed.textContent = `Wind Speed: ${data.wind.speed} m/s`;
-        
-        // Set the weather icon
-        const iconCode = data.weather[0].icon;
-        const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-        document.getElementById('weatherIcon').src = iconUrl;
-    
+
+
         this.weatherCard.style.display = 'block';
     }
-    
-    
 }
 
 class WeatherService extends WeatherApp {
+
+    constructor() {
+        super();
+        this.apiKey = '';
+    }
+
+
+
+    
     async fetchWeather() {
-        const apiKey = this.apiKey.value
+    
         const city = this.cityInput.value;
+        this.apiKey = this.APIKeyInput.value.trim(); 
+
+        if (!this.apiKey) {
+            alert('Please enter your API key.');
+            return;
+        }
+
         if (city) {
-            const data = await this.getWeatherData(city,apiKey);
+            const data = await this.getWeatherData(city);
             if (data) {
-                this.displayWeather(data,apiKey);
+                this.displayWeather(data);
             } else {
                 alert('City not found. Please try again.');
             }
@@ -79,9 +85,9 @@ class WeatherService extends WeatherApp {
         }
     }
 
-    async getWeatherData(city,apiKey) {
+    async getWeatherData(city) {
         try {
-            const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`);
+            const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${this.apiKey}&units=metric`);
             if (response.ok) {
                 return await response.json();
             }
@@ -89,11 +95,11 @@ class WeatherService extends WeatherApp {
             console.error('Error fetching weather data:', error);
         }
         return null;
-    }   
+    }
 
-    async getWeatherDataByCoordinates(latitude, longitude, apiKey) {
+    async getWeatherDataByCoordinates(latitude, longitude) {
         try {
-            const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`);
+            const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${this.apiKey}&units=metric`);
             if (response.ok) {
                 return await response.json();
             }
@@ -102,11 +108,8 @@ class WeatherService extends WeatherApp {
         }
         return null;
     }
+
 }
+
+
 const weatherApp = new WeatherService();
-/*
-document.addEventListener('DOMContentLoaded', () => {
-    const modal = new bootstrap.Modal(document.getElementById('infoModal'));
-    modal.show();
-});
-*/
